@@ -540,29 +540,23 @@
       audioInitialized = true;
       initAudio();
       
-      // Attempt to play immediately
+      // Attempt to play immediately unmuted
       audio.play().then(() => {
         audioPlaying = true;
         musicBtn.textContent = '🔊';
       }).catch((error) => {
-        // Autoplay was prevented by the browser (very common).
-        // Strategy: Mute it so the browser allows it to play, 
-        // then unmute on the very first user interaction.
-        audio.muted = true;
-        audio.play().then(() => {
-          audioPlaying = true;
-          // Don't show '🔊' yet because it's muted, wait for interaction
-        }).catch(() => {});
+        console.warn("Browser blocked autoplay. The user must interact with the page first.", error);
         
-        // Listen for any interaction to unmute
-        const unmuteOnInteract = () => {
-          audio.muted = false;
+        // Fallback: try to play as soon as they click anywhere
+        const playOnInteract = () => {
+          audio.play();
+          audioPlaying = true;
           musicBtn.textContent = '🔊';
-          document.removeEventListener('click', unmuteOnInteract);
-          document.removeEventListener('touchstart', unmuteOnInteract);
+          document.removeEventListener('click', playOnInteract);
+          document.removeEventListener('touchstart', playOnInteract);
         };
-        document.addEventListener('click', unmuteOnInteract, { once: true });
-        document.addEventListener('touchstart', unmuteOnInteract, { once: true });
+        document.addEventListener('click', playOnInteract, { once: true });
+        document.addEventListener('touchstart', playOnInteract, { once: true });
       });
     }
 
