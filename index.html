@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Would Shams Go On a Date With Me? 💕</title>
+  <meta name="description" content="A romantic question for Shams 💕">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #4A0E1A;
+      --bg-darker: #2A0610;
+      --cream: #FFF5F7;
+      --cream-dim: #e8c8cf;
+      --wine: #8B2252;
+      --wine-light: #C4537A;
+      --wine-glow: rgba(196, 83, 122, 0.4);
+      --rose: #D46A8A;
+      --gold: #D4A574;
+      --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: var(--font-sans);
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* ── Background ambiance ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.6) 0%, transparent 60%),
+        radial-gradient(ellipse at 0% 0%, rgba(0,0,0,0.5) 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 0%, rgba(0,0,0,0.5) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 40%, rgba(139, 34, 82, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating ambient particles */
+    .ambient-particle {
+      position: fixed;
+      width: 3px;
+      height: 3px;
+      background: rgba(212, 106, 138, 0.3);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: floatParticle 8s ease-in-out infinite;
+    }
+
+    @keyframes floatParticle {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 0.2; }
+      50% { transform: translateY(-40px) scale(1.5); opacity: 0.5; }
+    }
+
+    /* ── Music toggle ── */
+    #music-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(74, 14, 26, 0.6);
+      border: 1px solid rgba(196, 83, 122, 0.3);
+      color: var(--cream-dim);
+      font-size: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0.5;
+    }
+
+    #music-toggle:hover {
+      opacity: 1;
+      border-color: var(--wine-light);
+      box-shadow: 0 0 16px var(--wine-glow);
+    }
+
+    /* ── Screen containers ── */
+    .screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+      padding: 24px;
+    }
+
+    .screen.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ── Headings ── */
+    .screen-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(32px, 7vw, 56px);
+      font-weight: 600;
+      color: var(--cream);
+      text-align: center;
+      margin-bottom: 48px;
+      line-height: 1.3;
+      animation: fadeInUp 0.8s ease forwards;
+      text-shadow: 0 2px 20px rgba(139, 34, 82, 0.4);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      font-family: var(--font-sans);
+      font-size: 17px;
+      font-weight: 500;
+      padding: 14px 40px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(196, 83, 122, 0.5);
+      background: rgba(139, 34, 82, 0.25);
+      color: var(--cream);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      min-height: 48px;
+    }
+
+    .btn:hover {
+      background: rgba(196, 83, 122, 0.35);
+      border-color: var(--wine-light);
+      box-shadow: 0 0 24px var(--wine-glow), inset 0 0 12px rgba(196, 83, 122, 0.1);
+      transform: scale(1.03);
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-correct {
+      border-color: rgba(212, 165, 116, 0.5);
+      background: rgba(212, 165, 116, 0.15);
+    }
+
+    .btn-correct:hover {
+      border-color: var(--gold);
+      background: rgba(212, 165, 116, 0.3);
+      box-shadow: 0 0 24px rgba(212, 165, 116, 0.3), inset 0 0 12px rgba(212, 165, 116, 0.1);
+    }
+
+    /* ── Button layouts ── */
+    .btn-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeInUp 0.8s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    .btn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 400px;
+      width: 100%;
+      animation: fadeInUp 0.8s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    .btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 220px;
+      animation: fadeInUp 0.8s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    /* ── Teleporting button (when escaping) ── */
+    .btn-escape {
+      position: fixed;
+      z-index: 10;
+      transition: none;
+    }
+
+
+
+    /* ── Hint text ── */
+    .hint-text {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 15px;
+      color: var(--cream-dim);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      text-align: center;
+      margin-top: 20px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .hint-text.visible {
+      opacity: 1;
+    }
+
+    /* ── Final screen ── */
+    #screen-final .final-heart {
+      font-size: clamp(64px, 15vw, 120px);
+      animation: heartbeat 1.2s ease-in-out infinite;
+      margin-bottom: 24px;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.15); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.1); }
+      60% { transform: scale(1); }
+    }
+
+    #screen-final .final-text {
+      font-family: var(--font-serif);
+      font-size: clamp(24px, 5vw, 40px);
+      text-align: center;
+      line-height: 1.6;
+      color: var(--cream);
+      text-shadow: 0 2px 20px rgba(139, 34, 82, 0.4);
+      animation: fadeInUp 1s ease 0.3s forwards;
+      opacity: 0;
+    }
+
+    .final-sub {
+      font-size: clamp(18px, 3.5vw, 28px) !important;
+      color: var(--cream-dim) !important;
+      margin-top: 8px;
+    }
+
+    /* ── Confetti / petals ── */
+    .petal {
+      position: fixed;
+      top: -30px;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.7;
+      font-size: 20px;
+      animation: petalFall linear forwards;
+    }
+
+    @keyframes petalFall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ── Responsive — tablets ── */
+    @media (max-width: 768px) {
+      .screen-heading {
+        font-size: clamp(26px, 6vw, 42px);
+        margin-bottom: 32px;
+        padding: 0 12px;
+      }
+
+      .btn {
+        font-size: 16px;
+        padding: 14px 32px;
+      }
+
+      .btn-grid {
+        max-width: 340px;
+        gap: 12px;
+      }
+    }
+
+    /* ── Responsive — phones ── */
+    @media (max-width: 480px) {
+      .screen {
+        padding: 16px;
+        padding-top: env(safe-area-inset-top, 16px);
+        padding-bottom: env(safe-area-inset-bottom, 16px);
+      }
+
+      .screen-heading {
+        font-size: clamp(22px, 6.5vw, 34px);
+        margin-bottom: 28px;
+        line-height: 1.35;
+      }
+
+      .btn {
+        font-size: 15px;
+        padding: 13px 24px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .btn-row {
+        flex-direction: column;
+        width: 100%;
+        max-width: 260px;
+        gap: 14px;
+      }
+
+      .btn-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        max-width: 260px;
+      }
+
+      .btn-stack {
+        min-width: unset;
+        width: 100%;
+        max-width: 260px;
+        gap: 12px;
+      }
+
+      .hint-text {
+        font-size: 13px;
+        margin-top: 16px;
+      }
+
+      #screen-final .final-heart {
+        font-size: clamp(56px, 18vw, 90px);
+        margin-bottom: 16px;
+      }
+
+      #screen-final .final-text {
+        font-size: clamp(20px, 5vw, 30px);
+      }
+
+      .final-sub {
+        font-size: clamp(15px, 4vw, 22px) !important;
+      }
+
+      #music-toggle {
+        top: 12px;
+        right: 12px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+    }
+
+    /* ── Very small phones ── */
+    @media (max-width: 360px) {
+      .screen-heading {
+        font-size: 20px;
+      }
+
+      .btn {
+        font-size: 14px;
+        padding: 12px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient particles -->
+  <div class="ambient-particle" style="left:10%;top:20%;animation-delay:0s;"></div>
+  <div class="ambient-particle" style="left:80%;top:15%;animation-delay:2s;"></div>
+  <div class="ambient-particle" style="left:30%;top:70%;animation-delay:4s;"></div>
+  <div class="ambient-particle" style="left:65%;top:80%;animation-delay:1s;"></div>
+  <div class="ambient-particle" style="left:50%;top:45%;animation-delay:3s;"></div>
+  <div class="ambient-particle" style="left:15%;top:60%;animation-delay:5s;"></div>
+  <div class="ambient-particle" style="left:90%;top:50%;animation-delay:6s;"></div>
+
+  <!-- Music toggle -->
+  <button id="music-toggle" aria-label="Toggle music">🎵</button>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SCREEN 1 — The Big Question                -->
+  <!-- ════════════════════════════════════════════ -->
+  <div id="screen-1" class="screen active">
+    <h1 class="screen-heading">Would Shams go on a date with me? 💕</h1>
+    <div class="btn-row">
+      <button id="btn-yes" class="btn btn-correct" onclick="goToScreen(2)">Yes</button>
+      <button id="btn-no" class="btn">No</button>
+    </div>
+    <p id="hint-1" class="hint-text">Give up and say yes 😅</p>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SCREEN 2 — When?                            -->
+  <!-- ════════════════════════════════════════════ -->
+  <div id="screen-2" class="screen">
+    <h1 class="screen-heading">When? 📅</h1>
+    <div class="btn-grid">
+      <button id="btn-kareem" class="btn btn-correct" onclick="goToScreen(3)">Kareem's choice</button>
+      <button class="btn btn-flee s2-flee">Next Friday</button>
+      <button class="btn btn-flee s2-flee">This Weekend</button>
+      <button class="btn btn-flee s2-flee">Maybe Next Month</button>
+    </div>
+    <p id="hint-2" class="hint-text">Maybe just go with Kareem's choice... 😏</p>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- SCREEN 3 — XOXO?                            -->
+  <!-- ════════════════════════════════════════════ -->
+  <div id="screen-3" class="screen">
+    <h1 class="screen-heading">XOXO? 🥰</h1>
+    <div class="btn-stack">
+      <button class="btn btn-correct" onclick="goToScreen('final')">Kiss</button>
+      <button class="btn btn-correct" onclick="goToScreen('final')">Kiss and Hug</button>
+      <button class="btn btn-flee s3-flee">Nothing</button>
+    </div>
+    <p id="hint-3" class="hint-text">There's no escape from love 💋</p>
+  </div>
+
+  <!-- ════════════════════════════════════════════ -->
+  <!-- FINAL SCREEN                                 -->
+  <!-- ════════════════════════════════════════════ -->
+  <div id="screen-final" class="screen">
+    <div class="final-heart">🫶</div>
+    <div class="final-text">It's a date, Shams! 💕</div>
+    <div class="final-text final-sub">Kareem can't wait 🌹</div>
+  </div>
+
+  <script>
+    /* ─────────────────────────────────────────────
+       Audio
+    ───────────────────────────────────────────── */
+    let audio = null;
+    let audioPlaying = false;
+    const musicBtn = document.getElementById('music-toggle');
+
+    function initAudio() {
+      if (audio) return;
+      audio = new Audio('song.mp3');
+      audio.loop = true;
+      audio.volume = 0.4;
+    }
+
+    function toggleMusic() {
+      initAudio();
+      if (audioPlaying) {
+        audio.pause();
+        audioPlaying = false;
+        musicBtn.textContent = '🎵';
+      } else {
+        audio.play().then(() => {
+          audioPlaying = true;
+          musicBtn.textContent = '🔊';
+        }).catch(() => {});
+      }
+    }
+
+    musicBtn.addEventListener('click', toggleMusic);
+
+    // Try to start audio on first user interaction anywhere
+    let audioInitialized = false;
+    function tryAutoplay() {
+      if (audioInitialized) return;
+      audioInitialized = true;
+      initAudio();
+      audio.play().then(() => {
+        audioPlaying = true;
+        musicBtn.textContent = '🔊';
+      }).catch(() => {});
+    }
+
+    document.addEventListener('click', tryAutoplay, { once: true });
+    document.addEventListener('touchstart', tryAutoplay, { once: true });
+
+    /* ─────────────────────────────────────────────
+       Screen navigation
+    ───────────────────────────────────────────── */
+    let currentScreen = 1;
+
+    function goToScreen(target) {
+      const current = document.getElementById(currentScreen === 'final' ? 'screen-final' : `screen-${currentScreen}`);
+      const next = document.getElementById(target === 'final' ? 'screen-final' : `screen-${target}`);
+
+      // Reset any escaped buttons for the new screen
+      resetEscapeButtons(target);
+
+      current.classList.remove('active');
+      setTimeout(() => {
+        next.classList.add('active');
+        currentScreen = target;
+
+        if (target === 'final') {
+          startPetalRain();
+        }
+      }, 300);
+    }
+
+    function resetEscapeButtons(screenId) {
+      // Reset flee buttons back to normal flow when entering a screen
+      const screen = document.getElementById(screenId === 'final' ? 'screen-final' : `screen-${screenId}`);
+      if (!screen) return;
+      screen.querySelectorAll('.btn-flee').forEach(btn => {
+        btn.classList.remove('btn-escape');
+        btn.style.position = '';
+        btn.style.left = '';
+        btn.style.top = '';
+      });
+    }
+
+    /* ─────────────────────────────────────────────
+       Teleporting "escape" buttons
+    ───────────────────────────────────────────── */
+    const escapeAttempts = { 1: 0, 2: 0, 3: 0 };
+
+    function getScreenForButton(btn) {
+      if (btn.id === 'btn-no') return 1;
+      if (btn.classList.contains('s2-flee')) return 2;
+      if (btn.classList.contains('s3-flee')) return 3;
+      return 0;
+    }
+
+    function teleportButton(btn) {
+      const screenNum = getScreenForButton(btn);
+      if (!screenNum) return;
+
+      // Convert to fixed positioning if not already
+      if (!btn.classList.contains('btn-escape')) {
+        btn.classList.add('btn-escape');
+        btn.style.position = 'fixed';
+      }
+
+      const bw = btn.offsetWidth;
+      const bh = btn.offsetHeight;
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      // Keep buttons in the center ~60% of the viewport
+      // so they never go near edges or off-screen on mobile
+      const padX = Math.max(vw * 0.2, 40);
+      const padY = Math.max(vh * 0.2, 60);
+
+      const minX = padX;
+      const maxX = vw - bw - padX;
+      const minY = padY;
+      const maxY = vh - bh - padY;
+
+      // Safety: if screen is too small, just center the button
+      if (maxX <= minX || maxY <= minY) {
+        btn.style.left = ((vw - bw) / 2) + 'px';
+        btn.style.top = ((vh - bh) / 2 + 60) + 'px';
+      } else {
+        let newX, newY;
+        let tries = 0;
+
+        // Find a position that doesn't overlap correct buttons
+        do {
+          newX = minX + Math.random() * (maxX - minX);
+          newY = minY + Math.random() * (maxY - minY);
+          tries++;
+        } while (tries < 30 && isOverlappingCorrect(newX, newY, bw, bh, screenNum));
+
+        btn.style.left = newX + 'px';
+        btn.style.top = newY + 'px';
+      }
+
+      // Count attempts and show hint
+      escapeAttempts[screenNum]++;
+      if (escapeAttempts[screenNum] >= 5) {
+        const hint = document.getElementById(`hint-${screenNum}`);
+        if (hint) hint.classList.add('visible');
+      }
+    }
+
+    function isOverlappingCorrect(x, y, w, h, screenNum) {
+      let correctBtns = [];
+      if (screenNum === 1) correctBtns = [document.getElementById('btn-yes')];
+      if (screenNum === 2) correctBtns = [document.getElementById('btn-kareem')];
+      if (screenNum === 3) {
+        const s3 = document.getElementById('screen-3');
+        correctBtns = Array.from(s3.querySelectorAll('.btn-correct'));
+      }
+
+      for (const cb of correctBtns) {
+        if (!cb) continue;
+        const r = cb.getBoundingClientRect();
+        const pad = 20;
+        if (
+          x < r.right + pad &&
+          x + w > r.left - pad &&
+          y < r.bottom + pad &&
+          y + h > r.top - pad
+        ) return true;
+      }
+      return false;
+    }
+
+    // Attach escape behavior to all flee buttons — click only
+    function attachEscapeHandlers() {
+      const fleeButtons = document.querySelectorAll('.btn-flee, #btn-no');
+
+      fleeButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          teleportButton(btn);
+        });
+      });
+    }
+
+    attachEscapeHandlers();
+
+    /* ─────────────────────────────────────────────
+       Petal rain on final screen
+    ───────────────────────────────────────────── */
+    function startPetalRain() {
+      const petals = ['🌹', '🩷', '💕', '✨', '🌸', '💗', '🩵'];
+      const container = document.body;
+
+      function dropPetal() {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.fontSize = (14 + Math.random() * 16) + 'px';
+        const duration = 3 + Math.random() * 4;
+        petal.style.animationDuration = duration + 's';
+        petal.style.animationDelay = Math.random() * 0.5 + 's';
+        container.appendChild(petal);
+
+        setTimeout(() => petal.remove(), (duration + 1) * 1000);
+      }
+
+      // Initial burst
+      for (let i = 0; i < 20; i++) {
+        setTimeout(dropPetal, i * 100);
+      }
+
+      // Continuous gentle rain
+      const interval = setInterval(dropPetal, 300);
+
+      // Slow down after 8 seconds
+      setTimeout(() => {
+        clearInterval(interval);
+        setInterval(dropPetal, 800);
+      }, 8000);
+    }
+  </script>
+</body>
+</html>
