@@ -532,20 +532,42 @@
 
     musicBtn.addEventListener('click', toggleMusic);
 
-    // Try to start audio on first user interaction anywhere
+    // Try to start audio immediately when the page loads
     let audioInitialized = false;
+    
     function tryAutoplay() {
       if (audioInitialized) return;
       audioInitialized = true;
       initAudio();
+      
+      // Attempt to play immediately
       audio.play().then(() => {
         audioPlaying = true;
         musicBtn.textContent = '🔊';
-      }).catch(() => { });
+      }).catch((error) => {
+        // Autoplay was prevented by the browser (very common).
+        // Strategy: Mute it so the browser allows it to play, 
+        // then unmute on the very first user interaction.
+        audio.muted = true;
+        audio.play().then(() => {
+          audioPlaying = true;
+          // Don't show '🔊' yet because it's muted, wait for interaction
+        }).catch(() => {});
+        
+        // Listen for any interaction to unmute
+        const unmuteOnInteract = () => {
+          audio.muted = false;
+          musicBtn.textContent = '🔊';
+          document.removeEventListener('click', unmuteOnInteract);
+          document.removeEventListener('touchstart', unmuteOnInteract);
+        };
+        document.addEventListener('click', unmuteOnInteract, { once: true });
+        document.addEventListener('touchstart', unmuteOnInteract, { once: true });
+      });
     }
 
-    document.addEventListener('click', tryAutoplay, { once: true });
-    document.addEventListener('touchstart', tryAutoplay, { once: true });
+    // Run autoplay attempt as soon as the DOM is ready
+    document.addEventListener('DOMContentLoaded', tryAutoplay);
 
     /* ─────────────────────────────────────────────
        Screen navigation
